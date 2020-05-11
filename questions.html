@@ -10,27 +10,27 @@
 <body>
   <main>
     <div class="top-portion">
-      <h1>Quiz question</h1>
-      <p>Question <span></span>of 5</p>
+      <h1 class="js-quiz-question">Question</h1>
+      <p>Question <span class="js-question-number"></span>of 5</p>
       <p>Score: <span></span> correct  <span></span> incorrect</p>
     </div>
     <form>
       <div class="questions-flex">
         <div>
           <input type="radio" id="option1" name="answer">
-          <label for="option1">Answer</label>
+          <label for="option1" class="js-option1">Answer</label>
         </div>
         <div>
           <input type="radio" id="option2" name="answer">
-          <label for="option2">Answer</label>
+          <label for="option2" class="js-option2">Answer</label>
         </div>
         <div>
           <input type="radio" id="option3" name="answer">
-          <label for="option3">Answer</label>
+          <label for="option3" class="js-option3">Answer</label>
         </div>
         <div>
           <input type="radio" id="option4" name="answer">
-          <label for="option4">Answer</label>
+          <label for="option4" class="js-option4">Answer</label>
         </div>
       </div>
       <input type="button" value="Submit" onclick="window.location.href='answer-result.html'">

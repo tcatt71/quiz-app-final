@@ -42,10 +42,29 @@ const question5 = {
 
 const questions = [question1, question2, question3, question4, question5];
 
+function loadQuestion(question) {
+    $('.js-quiz-question').text(question.question);
+    $('.js-question-number').text(questions.indexOf(question) + 1);
+    $('.js-option1').text(question.optiionA.answer);
+    $('.js-option2').text(question.optiionB.answer);
+    $('.js-option3').text(question.optiionC.answer);
+    $('.js-option4').text(question.optiionD.answer);
+}
+
 function handleStartQuizClicked() {
-    //Listen for when a user clicks the 'Start' button.
+  //Listen for when a user clicks the 'Start' button.
+  $('.js-start-quiz-button').on('click', function () {
+    //console.log('start quiz');
+    //window.location = 'questions.html';
+
+    //Load 1st questions object into the questions.html file.
+    loadQuestion(question1);
+
+    //window.location = 'questions.html';
+    
     //Update Window with questions.html file.
-    console.log('start quiz');
+  });
+  console.log('start quiz');
 }
 
 function handleSubmitAnswerSubmit() {
@@ -75,9 +94,9 @@ function handleExitClicked() {
     console.log('exited quiz');
 }
 
+//handleStartQuizClicked();
 
-
-/* function handleQuizApp() {
+function handleQuizApp() {
     handleStartQuizClicked();
     handleSubmitAnswerSubmit();
     handleNextQuestionClicked();
@@ -85,4 +104,4 @@ function handleExitClicked() {
     handleExitClicked();
 }
 
-$(handleQuizApp); */
+$(handleQuizApp);
