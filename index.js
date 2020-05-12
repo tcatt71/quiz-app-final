@@ -42,33 +42,50 @@ const question5 = {
 
 const questions = [question1, question2, question3, question4, question5];
 
+const score = {correct: 0, incorrect: 0}
+
 function loadQuestion(question) {
-    $('.js-quiz-question').text(question.question);
-    $('.js-question-number').text(questions.indexOf(question) + 1);
-    $('.js-option1').text(question.optiionA.answer);
-    $('.js-option2').text(question.optiionB.answer);
-    $('.js-option3').text(question.optiionC.answer);
-    $('.js-option4').text(question.optiionD.answer);
+  $('main').html(`
+    <div class="top-portion">
+      <h1 class="js-quiz-question">${question.question}</h1>
+      <p>Question <span class="js-question-number">${questions.indexOf(question) + 1}</span>of 5</p>
+      <p>Score: ${score.correct}</span> correct  ${score.incorrect} incorrect</p>
+    </div>
+    <form>
+      <div class="questions-flex">
+        <div>
+          <input type="radio" id="option1" name="answer">
+          <label for="option1" class="js-option1">${question.optiionA.answer}</label>
+        </div>
+        <div>
+          <input type="radio" id="option2" name="answer">
+          <label for="option2" class="js-option2">${question.optiionB.answer}</label>
+        </div>
+        <div>
+          <input type="radio" id="option3" name="answer">
+          <label for="option3" class="js-option3">${question.optiionC.answer}</label>
+        </div>
+        <div>
+          <input type="radio" id="option4" name="answer">
+          <label for="option4" class="js-option4">${question.optiionD.answer}</label>
+        </div>
+      </div>
+      <input type="button" value="Submit">
+    </form>`);
 }
 
 function handleStartQuizClicked() {
   //Listen for when a user clicks the 'Start' button.
   $('.js-start-quiz-button').on('click', function () {
-    //console.log('start quiz');
-    //window.location = 'questions.html';
-
-    //Load 1st questions object into the questions.html file.
+    //Load the first questions object into the questions.html file.
     loadQuestion(question1);
-
-    //window.location = 'questions.html';
-    
-    //Update Window with questions.html file.
   });
   console.log('start quiz');
 }
 
 function handleSubmitAnswerSubmit() {
     //Listen for when a users submit their answer.
+  
     //Track score.
     //Update answer-result.html file
     //Update Window with answer-result.html
