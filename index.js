@@ -88,7 +88,7 @@ function renderAnswerResultView(userChoice, correctAnswer) {
     </div>
     <form class="js-form">
       <p>The correct answer is ${correctAnswer}</p>
-      <button type="button" onclick="handleNextQuestionClicked()">Next question</button>
+      <button type="button" onclick="handleNextQuestionClicked()">Next</button>
     </form>`);
 }
 
