@@ -2,123 +2,169 @@
 
 const question1 = {
     question: "Who is the Seahawks current head coach?",
-    optiionA: { answer: "Bill Belicheck", isCorrect: false },
-    optiionB: { answer: "Chuck Knox", isCorrect: false },
-    optiionC: { answer: "Pete Carroll", isCorrect: true },
-    optiionD: { answer: "Micheal Jordan", isCorrect: false }
+    optionA: { answer: "Bill Belicheck", isCorrect: false },
+    optionB: { answer: "Chuck Knox", isCorrect: false },
+    optionC: { answer: "Pete Carroll", isCorrect: true },
+    optionD: { answer: "Micheal Jordan", isCorrect: false }
 };
 
 const question2 = {
     question: "How many Superbowls have the Seahawks won?",
-    optiionA: { answer: "3", isCorrect: false },
-    optiionB: { answer: "6", isCorrect: false },
-    optiionC: { answer: "1", isCorrect: true },
-    optiionD: { answer: "none", isCorrect: false }
+    optionA: { answer: "3", isCorrect: false },
+    optionB: { answer: "6", isCorrect: false },
+    optionC: { answer: "1", isCorrect: true },
+    optionD: { answer: "none", isCorrect: false }
 };
 
 const question3 = {
     question: "What was the first year the Seahawks made the playoffs?",
-    optiionA: { answer: "2012", isCorrect: false },
-    optiionB: { answer: "1983", isCorrect: true },
-    optiionC: { answer: "1976", isCorrect: false },
-    optiionD: { answer: "The Seahawks have never made the playoffs", isCorrect: false }
+    optionA: { answer: "2012", isCorrect: false },
+    optionB: { answer: "1983", isCorrect: true },
+    optionC: { answer: "1976", isCorrect: false },
+    optionD: { answer: "The Seahawks have never made the playoffs", isCorrect: false }
 };
 
 const question4 = {
     question: "Who was the first starting quarterback for your Seattle Seahawks?",
-    optiionA: { answer: "Jon Kitna", isCorrect: false },
-    optiionB: { answer: "Tom Brady", isCorrect: false },
-    optiionC: { answer: "Russell Wilson", isCorrect: false },
-    optiionD: { answer: "Jim Zorn", isCorrect: true }
+    optionA: { answer: "Jon Kitna", isCorrect: false },
+    optionB: { answer: "Tom Brady", isCorrect: false },
+    optionC: { answer: "Russell Wilson", isCorrect: false },
+    optionD: { answer: "Jim Zorn", isCorrect: true }
 };
 
 const question5 = {
     question: "What Seahawk has the nickname 'Beast Mode'?",
-    optiionA: { answer: "Marshawn Lynch", isCorrect: true },
-    optiionB: { answer: "Kam Chancellor", isCorrect: false },
-    optiionC: { answer: "Chris Carson", isCorrect: false },
-    optiionD: { answer: "Blitz", isCorrect: false },
+    optionA: { answer: "Marshawn Lynch", isCorrect: true },
+    optionB: { answer: "Kam Chancellor", isCorrect: false },
+    optionC: { answer: "Chris Carson", isCorrect: false },
+    optionD: { answer: "Blitz", isCorrect: false },
 };
 
 const questions = [question1, question2, question3, question4, question5];
+const score = { correct: 0, incorrect: 0 };
+let indexOfQuestion = 0;
 
-const score = {correct: 0, incorrect: 0}
-
-function loadQuestion(question) {
-  $('main').html(`
+function renderFinalResultsView() {
+  $('js-main').html(`
     <div class="top-portion">
-      <h1 class="js-quiz-question">${question.question}</h1>
-      <p>Question <span class="js-question-number">${questions.indexOf(question) + 1}</span>of 5</p>
+      <h1>All done!</h1>
+    </div>
+    <form class="js-form">
+      <p>Score</p>
+      <div class="score">
+        <p class="score-results"><span></span> of <span></span></p>
+      </div>
+      <button type="button">Take again!</button>
+      <button type="button">Exit</button>
+    </form>`);
+}
+
+function renderQuestionsView(question) {
+  $('.js-main').html(`
+    <div class="top-portion">
+      <h1>${question.question}</h1>
+      <p>Question ${questions.indexOf(question) + 1} of 5</p>
       <p>Score: ${score.correct}</span> correct  ${score.incorrect} incorrect</p>
     </div>
-    <form>
+    <form class="js-form">
       <div class="questions-flex">
         <div>
-          <input type="radio" id="option1" name="answer">
-          <label for="option1" class="js-option1">${question.optiionA.answer}</label>
+          <input type="radio" id="option1" name="answer" value="${question.optionA.answer}">
+          <label for="option1" class="js-option1">${question.optionA.answer}</label>
         </div>
         <div>
-          <input type="radio" id="option2" name="answer">
-          <label for="option2" class="js-option2">${question.optiionB.answer}</label>
+          <input type="radio" id="option2" name="answer" value="${question.optionB.answer}">
+          <label for="option2" class="js-option2">${question.optionB.answer}</label>
         </div>
         <div>
-          <input type="radio" id="option3" name="answer">
-          <label for="option3" class="js-option3">${question.optiionC.answer}</label>
+          <input type="radio" id="option3" name="answer" value="${question.optionC.answer}">
+          <label for="option3" class="js-option3">${question.optionC.answer}</label>
         </div>
         <div>
-          <input type="radio" id="option4" name="answer">
-          <label for="option4" class="js-option4">${question.optiionD.answer}</label>
+          <input type="radio" id="option4" name="answer" value="${question.optionD.answer}">
+          <label for="option4" class="js-option4">${question.optionD.answer}</label>
         </div>
       </div>
-      <input type="button" value="Submit">
+      <button type="submit" onclick="handleSubmitAnswerSubmit()">Enter</button>
     </form>`);
 }
 
 function handleStartQuizClicked() {
-  //Listen for when a user clicks the 'Start' button.
   $('.js-start-quiz-button').on('click', function () {
-    //Load the first questions object into the questions.html file.
-    loadQuestion(question1);
+    renderQuestionsView(questions[indexOfQuestion]);
   });
   console.log('start quiz');
 }
 
+function renderAnswerResultView(userChoice, correctAnswer) {
+  $('.js-main').html(
+    `<div class="top-portion">
+      <h1>${userChoice.isCorrect ? 'Yes!' : 'Opps!'}</h1>
+    </div>
+    <form class="js-form">
+      <p>The correct answer is ${correctAnswer}</p>
+      <button type="button" onclick="handleNextQuestionClicked()">Next question</button>
+    </form>`);
+}
+
+function findUserChoice(userSelection) {
+  if (questions[indexOfQuestion].optionA.answer === userSelection) { return questions[indexOfQuestion].optionA; }
+  else if (questions[indexOfQuestion].optionB.answer === userSelection) { return questions[indexOfQuestion].optionB; }
+  else if (questions[indexOfQuestion].optionC.answer === userSelection) { return questions[indexOfQuestion].optionC; }
+  else { return questions[indexOfQuestion].optionD; }
+}
+
+function getCorrectAnswer() {
+  if (questions[indexOfQuestion].optionA.isCorrect) { return questions[indexOfQuestion].optionA.answer; }
+  else if (questions[indexOfQuestion].optionB.isCorrect) { return questions[indexOfQuestion].optionB.answer; }
+  else if (questions[indexOfQuestion].optionC.isCorrect) { return questions[indexOfQuestion].optionC.answer; }
+  else { return questions[indexOfQuestion].optionD.answer; }
+}
+
+function updateScore(userChoice) {
+  if (userChoice.isCorrect) { score.correct++ }
+  else { score.incorrect++ }
+}
+
 function handleSubmitAnswerSubmit() {
-    //Listen for when a users submit their answer.
-  
-    //Track score.
-    //Update answer-result.html file
-    //Update Window with answer-result.html
-    console.log('submited answer');
+  $('.js-form').submit(function (event) {
+    const userSelection = $('input:checked').val();
+    const userChoice = findUserChoice(userSelection);
+    const correctAnswer = getCorrectAnswer();
+    updateScore(userChoice);
+    renderAnswerResultView(userChoice, correctAnswer);
+  });
+
+  console.log('submited answer');
 }
 
 function handleNextQuestionClicked() {
-    //Listen for when a user clicks the 'Next Question' button.
-    //Load next questions object into the questions.html file.
-    console.log('next question');
+  $('.js-form').on('click', function (event) {
+    indexOfQuestion++;
+    renderQuestionsView(questions[indexOfQuestion]);
+  });
+  console.log('next question');
 }
 
 function handleTakeQuizAgainClicked() {
-    //Listen for when a user clicks the 'Take Agian' button.
-    //Load 1st questions object into the questions.html file.
-    //Update Window with the questions.html file.
-    console.log('taking quiz again');
+  //Listen for when a user clicks the 'Take Agian' button.
+  //Load 1st questions object into the questions.html file.
+  //Update Window with the questions.html file.
+  console.log('taking quiz again');
 }
 
 function handleExitClicked() {
-    //Listen for when a user clicks the 'Exit' button.
-    //Update Window with the index.html file.
-    console.log('exited quiz');
+  //Listen for when a user clicks the 'Exit' button.
+  //Update Window with the index.html file.
+  console.log('exited quiz');
 }
 
-//handleStartQuizClicked();
-
 function handleQuizApp() {
-    handleStartQuizClicked();
-    handleSubmitAnswerSubmit();
-    handleNextQuestionClicked();
-    handleTakeQuizAgainClicked();
-    handleExitClicked();
+  handleStartQuizClicked();
+  handleSubmitAnswerSubmit();
+  handleNextQuestionClicked();
+  handleTakeQuizAgainClicked();
+  handleExitClicked();
 }
 
 $(handleQuizApp);
