@@ -44,6 +44,12 @@ const questions = [question1, question2, question3, question4, question5];
 const score = { correct: 0, incorrect: 0 };
 let indexOfQuestion = 0;
 
+function resetQuiz() {
+  indexOfQuestion = 0;
+  score.correct = 0;
+  score.incorrect = 0;
+}
+
 function renderQuestionsView(question) {
   $('.js-main').html(`
     <div class="top-portion">
@@ -75,7 +81,9 @@ function renderQuestionsView(question) {
 }
 
 function handleStartQuizClicked() {
-  $('.js-start-quiz-button').on('click', function () {
+  $('.js-form').on('click', '.js-start-quiz-button', function (event) {
+    event.stopPropagation();
+    resetQuiz();
     renderQuestionsView(questions[indexOfQuestion]);
   });
   console.log('start quiz');
@@ -149,9 +157,7 @@ function handleNextQuestionClicked() {
 
 function handleTakeQuizAgainClicked() {
   $('.js-form').on('click', '.js-take-again', function () {
-    indexOfQuestion = 0;
-    score.correct = 0;
-    score.incorrect = 0;
+    resetQuiz();
     renderQuestionsView(questions[indexOfQuestion]);
   });
   //Listen for when a user clicks the 'Take Agian' button.
@@ -165,9 +171,9 @@ function renderHomepage() {
     <div class="top-portion">
       <h1>Welcome!</h1>
     </div>
-    <form>
+    <form class="js-form">
       <p>Take the Seattle Seahawks quiz!</p>
-      <button type="button" class="js-start-quiz-button">Start!</button>
+      <button type="button" class="js-start-quiz-button" onclick="handleStartQuizClicked()">Start!</button>
     </form>`);
 }
 
