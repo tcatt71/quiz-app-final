@@ -86,7 +86,6 @@ function handleStartQuizClicked() {
     resetQuiz();
     renderQuestionsView(questions[indexOfQuestion]);
   });
-  console.log('start quiz');
 }
 
 function renderAnswerResultView(userChoice, correctAnswer) {
@@ -127,8 +126,6 @@ function handleSubmitAnswerSubmit() {
     updateScore(userChoice);
     renderAnswerResultView(userChoice, correctAnswer);
   });
-
-  console.log('submited answer');
 }
 
 function renderFinalResultsView() {
@@ -152,7 +149,6 @@ function handleNextQuestionClicked() {
     if (indexOfQuestion < questions.length) { renderQuestionsView(questions[indexOfQuestion]); }
     else { alert('im here'); renderFinalResultsView(); }
   });
-  console.log('next question');
 }
 
 function handleTakeQuizAgainClicked() {
@@ -160,10 +156,6 @@ function handleTakeQuizAgainClicked() {
     resetQuiz();
     renderQuestionsView(questions[indexOfQuestion]);
   });
-  //Listen for when a user clicks the 'Take Agian' button.
-  //Load 1st questions object into the questions.html file.
-  //Update Window with the questions.html file.
-  console.log('taking quiz again');
 }
 
 function renderHomepage() {
@@ -179,12 +171,8 @@ function renderHomepage() {
 
 function handleExitClicked() {
   $('.js-form').on('click', '.js-exit', function () {
-    alert('inside handleExitClicked');
     renderHomepage();
   });
-  //Listen for when a user clicks the 'Exit' button.
-  //Update Window with the index.html file.
-  console.log('exited quiz');
 }
 
 function handleQuizApp() {
