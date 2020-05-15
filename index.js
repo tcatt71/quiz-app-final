@@ -133,7 +133,7 @@ function renderFinalResultsView() {
       <div class="score">
         <p class="score-results">Score: ${score.correct} correct ${score.incorrect} incorrect</p>
       </div>
-      <button type="button">Take again!</button>
+      <button type="button" class="js-take-again" onclick="handleTakeQuizAgainClicked()">Take again!</button>
       <button type="button">Exit</button>
     </form>`);
 }
@@ -143,12 +143,17 @@ function handleNextQuestionClicked() {
     indexOfQuestion++;
     if (indexOfQuestion < questions.length) { renderQuestionsView(questions[indexOfQuestion]); }
     else { alert('im here'); renderFinalResultsView(); }
-    
   });
   console.log('next question');
 }
 
 function handleTakeQuizAgainClicked() {
+  $('.js-form').on('click', '.js-take-again', function () {
+    indexOfQuestion = 0;
+    score.correct = 0;
+    score.incorrect = 0;
+    renderQuestionsView(questions[indexOfQuestion]);
+  });
   //Listen for when a user clicks the 'Take Agian' button.
   //Load 1st questions object into the questions.html file.
   //Update Window with the questions.html file.
