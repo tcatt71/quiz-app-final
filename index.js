@@ -134,7 +134,7 @@ function renderFinalResultsView() {
         <p class="score-results">Score: ${score.correct} correct ${score.incorrect} incorrect</p>
       </div>
       <button type="button" class="js-take-again" onclick="handleTakeQuizAgainClicked()">Take again!</button>
-      <button type="button">Exit</button>
+      <button type="button" class="js-exit" onclick="handleExitClicked()">Exit</button>
     </form>`);
 }
 
@@ -160,7 +160,22 @@ function handleTakeQuizAgainClicked() {
   console.log('taking quiz again');
 }
 
+function renderHomepage() {
+  $('.js-main').html(`
+    <div class="top-portion">
+      <h1>Welcome!</h1>
+    </div>
+    <form>
+      <p>Take the Seattle Seahawks quiz!</p>
+      <button type="button" class="js-start-quiz-button">Start!</button>
+    </form>`);
+}
+
 function handleExitClicked() {
+  $('.js-form').on('click', '.js-exit', function () {
+    alert('inside handleExitClicked');
+    renderHomepage();
+  });
   //Listen for when a user clicks the 'Exit' button.
   //Update Window with the index.html file.
   console.log('exited quiz');
