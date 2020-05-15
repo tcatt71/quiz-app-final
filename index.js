@@ -147,7 +147,7 @@ function handleNextQuestionClicked() {
   $('.js-form').on('click', function (event) {
     indexOfQuestion++;
     if (indexOfQuestion < questions.length) { renderQuestionsView(questions[indexOfQuestion]); }
-    else { alert('im here'); renderFinalResultsView(); }
+    else { renderFinalResultsView(); }
   });
 }
 
