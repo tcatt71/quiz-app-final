@@ -44,21 +44,6 @@ const questions = [question1, question2, question3, question4, question5];
 const score = { correct: 0, incorrect: 0 };
 let indexOfQuestion = 0;
 
-function renderFinalResultsView() {
-  $('js-main').html(`
-    <div class="top-portion">
-      <h1>All done!</h1>
-    </div>
-    <form class="js-form">
-      <p>Score</p>
-      <div class="score">
-        <p class="score-results"><span></span> of <span></span></p>
-      </div>
-      <button type="button">Take again!</button>
-      <button type="button">Exit</button>
-    </form>`);
-}
-
 function renderQuestionsView(question) {
   $('.js-main').html(`
     <div class="top-portion">
@@ -138,10 +123,27 @@ function handleSubmitAnswerSubmit() {
   console.log('submited answer');
 }
 
+function renderFinalResultsView() {
+  $('.js-main').html(`
+    <div class="top-portion">
+      <h1>All done!</h1>
+    </div>
+    <form class="js-form">
+      <p>Score</p>
+      <div class="score">
+        <p class="score-results">Score: ${score.correct} correct ${score.incorrect} incorrect</p>
+      </div>
+      <button type="button">Take again!</button>
+      <button type="button">Exit</button>
+    </form>`);
+}
+
 function handleNextQuestionClicked() {
   $('.js-form').on('click', function (event) {
     indexOfQuestion++;
-    renderQuestionsView(questions[indexOfQuestion]);
+    if (indexOfQuestion < questions.length) { renderQuestionsView(questions[indexOfQuestion]); }
+    else { alert('im here'); renderFinalResultsView(); }
+    
   });
   console.log('next question');
 }
