@@ -121,6 +121,11 @@ function updateScore(userChoice) {
 function handleSubmitAnswerSubmit() {
   $('.js-form').submit(function (event) {
     const userSelection = $('input:checked').val();
+    if (userSelection === undefined) {
+      alert('Please click an answer');
+      renderQuestionsView(questions[indexOfQuestion]);
+      return false;
+    }
     const userChoice = findUserChoice(userSelection);
     const correctAnswer = getCorrectAnswer();
     updateScore(userChoice);
@@ -158,7 +163,7 @@ function handleTakeQuizAgainClicked() {
   });
 }
 
-function renderHomepage() {
+function renderHomepageView() {
   $('.js-main').html(`
     <div class="top-portion">
       <h1>Welcome!</h1>
@@ -171,7 +176,7 @@ function renderHomepage() {
 
 function handleExitClicked() {
   $('.js-form').on('click', '.js-exit', function () {
-    renderHomepage();
+    renderHomepageView();
   });
 }
 
