@@ -213,7 +213,7 @@ function generateHomepageView() {
     <main class="js-main">
       <form class="js-form">
         <p>Take the Seattle Seahawks quiz!</p>
-        <button type="button" class="js-start-quiz-button" onclick="handleStartQuizClicked()">Start!</button>
+        <button type="button" class="js-start-quiz-button" onclick="handleStartQuizClicked()">Start</button>
       </form>
     </main>`;
 }
