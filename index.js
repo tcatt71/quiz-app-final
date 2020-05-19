@@ -10,9 +10,9 @@ const question1 = {
 
 const question2 = {
     question: "How many Superbowls have the Seahawks won?",
-    optionA: { answer: "3", isCorrect: false },
-    optionB: { answer: "6", isCorrect: false },
-    optionC: { answer: "1", isCorrect: true },
+    optionA: { answer: "three", isCorrect: false },
+    optionB: { answer: "six", isCorrect: false },
+    optionC: { answer: "one", isCorrect: true },
     optionD: { answer: "none", isCorrect: false }
 };
 
@@ -25,7 +25,7 @@ const question3 = {
 };
 
 const question4 = {
-    question: "Who was the first starting quarterback for your Seattle Seahawks?",
+    question: "Who was the first starting quarterback for the Seahawks?",
     optionA: { answer: "Jon Kitna", isCorrect: false },
     optionB: { answer: "Tom Brady", isCorrect: false },
     optionC: { answer: "Russell Wilson", isCorrect: false },
@@ -51,33 +51,38 @@ function resetQuiz() {
 }
 
 function renderQuestionsView(question) {
-  $('.js-main').html(`
-    <div class="top-portion">
+  $('.js-body').html(`
+    <header>
       <h1>${question.question}</h1>
-      <p>Question ${questions.indexOf(question) + 1} of 5</p>
-      <p>Score: ${score.correct}</span> correct  ${score.incorrect} incorrect</p>
-    </div>
-    <form class="js-form">
-      <div class="questions-flex">
-        <div>
-          <input type="radio" id="option1" name="answer" value="${question.optionA.answer}">
-          <label for="option1" class="js-option1">${question.optionA.answer}</label>
+    </header>
+    <main class="js-main">
+      <form class="js-form">
+        <div class="question-number-and-score">
+          <p>Question ${questions.indexOf(question) + 1} of 5</p><br>
+          <p> ${score.correct} correct</p>
+          <p> ${score.incorrect} incorrect</p>
         </div>
-        <div>
-          <input type="radio" id="option2" name="answer" value="${question.optionB.answer}">
-          <label for="option2" class="js-option2">${question.optionB.answer}</label>
+        <div class="questions-flex">
+          <div class="quiz-questions">
+            <input type="radio" id="option1" name="answer" value="${question.optionA.answer}">
+            <label for="option1" class="js-option1">${question.optionA.answer}</label>
+          </div>
+          <div class="quiz-questions">
+            <input type="radio" id="option2" name="answer" value="${question.optionB.answer}">
+            <label for="option2" class="js-option2">${question.optionB.answer}</label>
+          </div>
+          <div class="quiz-questions">
+            <input type="radio" id="option3" name="answer" value="${question.optionC.answer}">
+            <label for="option3" class="js-option3">${question.optionC.answer}</label>
+          </div>
+          <div class="quiz-questions">
+            <input type="radio" id="option4" name="answer" value="${question.optionD.answer}">
+            <label for="option4" class="js-option4">${question.optionD.answer}</label>
+          </div>
         </div>
-        <div>
-          <input type="radio" id="option3" name="answer" value="${question.optionC.answer}">
-          <label for="option3" class="js-option3">${question.optionC.answer}</label>
-        </div>
-        <div>
-          <input type="radio" id="option4" name="answer" value="${question.optionD.answer}">
-          <label for="option4" class="js-option4">${question.optionD.answer}</label>
-        </div>
-      </div>
-      <button type="submit" onclick="handleSubmitAnswerSubmit()">Enter</button>
-    </form>`);
+        <button type="submit" onclick="handleSubmitAnswerSubmit()">Enter</button>
+      </form>
+    </main>`);
 }
 
 function handleStartQuizClicked() {
@@ -88,15 +93,19 @@ function handleStartQuizClicked() {
   });
 }
 
-function renderAnswerResultView(userChoice, correctAnswer) {
-  $('.js-main').html(
-    `<div class="top-portion">
+function renderAnswerResultView(userChoice, correctAnswer, isCorrect) {
+  $('.js-body').html(
+    `<header class="js-header">
       <h1>${userChoice.isCorrect ? 'Yes!' : 'Opps!'}</h1>
-    </div>
-    <form class="js-form">
-      <p>The correct answer is ${correctAnswer}</p>
-      <button type="button" onclick="handleNextQuestionClicked()">Next</button>
-    </form>`);
+    </header>
+    <main class="js-main">
+      <form class="js-form">
+        <p>The correct answer is</p>
+        <p class="form-correct-answer"> ${correctAnswer} </p>
+        <button type="button" onclick="handleNextQuestionClicked()">Next</button>
+      </form>
+    </main>`);
+  if (!isCorrect) { $('.js-header').addClass('incorrect-answer'); }
 }
 
 function findUserChoice(userSelection) {
@@ -122,30 +131,33 @@ function handleSubmitAnswerSubmit() {
   $('.js-form').submit(function (event) {
     const userSelection = $('input:checked').val();
     if (userSelection === undefined) {
-      alert('Please click an answer');
+      alert('Please select an answer');
       renderQuestionsView(questions[indexOfQuestion]);
       return false;
     }
     const userChoice = findUserChoice(userSelection);
     const correctAnswer = getCorrectAnswer();
     updateScore(userChoice);
-    renderAnswerResultView(userChoice, correctAnswer);
+    renderAnswerResultView(userChoice, correctAnswer, userChoice.isCorrect);
   });
 }
 
 function renderFinalResultsView() {
-  $('.js-main').html(`
-    <div class="top-portion">
+  $('.js-body').html(`
+    <header>
       <h1>All done!</h1>
-    </div>
-    <form class="js-form">
-      <p>Score</p>
-      <div class="score">
-        <p class="score-results">Score: ${score.correct} correct ${score.incorrect} incorrect</p>
-      </div>
-      <button type="button" class="js-take-again" onclick="handleTakeQuizAgainClicked()">Take again!</button>
-      <button type="button" class="js-exit" onclick="handleExitClicked()">Exit</button>
-    </form>`);
+    </header>
+    <main class="js-main">
+      <form class="js-form">
+        <div class="score">
+          <p class="score-results">Score: </p><br>
+          <p> ${score.correct} correct</p>
+          <p> ${score.incorrect} incorrect</p>
+        </div>
+        <button type="button" class="js-take-again" onclick="handleTakeQuizAgainClicked()">Take again!</button>
+        <button type="button" class="js-exit" onclick="handleExitClicked()">Exit</button>
+      </form>
+    </main>`);
 }
 
 function handleNextQuestionClicked() {
@@ -164,14 +176,16 @@ function handleTakeQuizAgainClicked() {
 }
 
 function renderHomepageView() {
-  $('.js-main').html(`
-    <div class="top-portion">
+  $('.js-body').html(`
+    <header>
       <h1>Welcome!</h1>
-    </div>
-    <form class="js-form">
-      <p>Take the Seattle Seahawks quiz!</p>
-      <button type="button" class="js-start-quiz-button" onclick="handleStartQuizClicked()">Start!</button>
-    </form>`);
+    </header>
+    <main class="js-main">
+      <form class="js-form">
+        <p>Take the Seattle Seahawks quiz!</p>
+        <button type="button" class="js-start-quiz-button" onclick="handleStartQuizClicked()">Start!</button>
+      </form>
+    </main>`);
 }
 
 function handleExitClicked() {
