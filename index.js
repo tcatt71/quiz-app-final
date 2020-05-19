@@ -109,22 +109,36 @@ function renderAnswerResultView(userChoice, correctAnswer, isCorrect) {
 }
 
 function findUserChoice(userSelection) {
-  if (questions[indexOfQuestion].optionA.answer === userSelection) { return questions[indexOfQuestion].optionA; }
-  else if (questions[indexOfQuestion].optionB.answer === userSelection) { return questions[indexOfQuestion].optionB; }
-  else if (questions[indexOfQuestion].optionC.answer === userSelection) { return questions[indexOfQuestion].optionC; }
-  else { return questions[indexOfQuestion].optionD; }
+  if (questions[indexOfQuestion].optionA.answer === userSelection) {
+    return questions[indexOfQuestion].optionA;
+  } else if (questions[indexOfQuestion].optionB.answer === userSelection) {
+    return questions[indexOfQuestion].optionB;
+  } else if (questions[indexOfQuestion].optionC.answer === userSelection) {
+    return questions[indexOfQuestion].optionC;
+  } else {
+    return questions[indexOfQuestion].optionD;
+  }
 }
 
 function getCorrectAnswer() {
-  if (questions[indexOfQuestion].optionA.isCorrect) { return questions[indexOfQuestion].optionA.answer; }
-  else if (questions[indexOfQuestion].optionB.isCorrect) { return questions[indexOfQuestion].optionB.answer; }
-  else if (questions[indexOfQuestion].optionC.isCorrect) { return questions[indexOfQuestion].optionC.answer; }
-  else { return questions[indexOfQuestion].optionD.answer; }
+  if (questions[indexOfQuestion].optionA.isCorrect) {
+    return questions[indexOfQuestion].optionA.answer;
+  } else if (questions[indexOfQuestion].optionB.isCorrect) {
+    return questions[indexOfQuestion].optionB.answer;
+  } else if (questions[indexOfQuestion].optionC.isCorrect) {
+    return questions[indexOfQuestion].optionC.answer;
+  } else {
+    return questions[indexOfQuestion].optionD.answer;
+  }
 }
 
 function updateScore(userChoice) {
-  if (userChoice.isCorrect) { score.correct++ }
-  else { score.incorrect++ }
+  if (userChoice.isCorrect) {
+    score.correct++;
+  }
+  else {
+    score.incorrect++;
+  }
 }
 
 function handleSubmitAnswerSubmit() {
@@ -163,8 +177,11 @@ function renderFinalResultsView() {
 function handleNextQuestionClicked() {
   $('.js-form').on('click', function (event) {
     indexOfQuestion++;
-    if (indexOfQuestion < questions.length) { renderQuestionsView(questions[indexOfQuestion]); }
-    else { renderFinalResultsView(); }
+    if (indexOfQuestion < questions.length) {
+      renderQuestionsView(questions[indexOfQuestion]);
+    } else {
+      renderFinalResultsView();
+    }
   });
 }
 
