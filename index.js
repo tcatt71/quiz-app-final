@@ -50,8 +50,8 @@ function resetQuiz() {
   score.incorrect = 0;
 }
 
-function renderQuestionsView(question) {
-  $('.js-body').html(`
+function generateQuestionsView(question) {
+  return `
     <header>
       <h1>${question.question}</h1>
     </header>
@@ -82,21 +82,21 @@ function renderQuestionsView(question) {
         </div>
         <button type="submit" onclick="handleSubmitAnswerSubmit()">Enter</button>
       </form>
-    </main>`);
+    </main>`;
 }
 
 function handleStartQuizClicked() {
   $('.js-form').on('click', '.js-start-quiz-button', function (event) {
     event.stopPropagation();
     resetQuiz();
-    renderQuestionsView(questions[indexOfQuestion]);
+    $('.js-body').html(generateQuestionsView(questions[indexOfQuestion]));
   });
 }
 
-function renderAnswerResultView(userChoice, correctAnswer, isCorrect) {
-  $('.js-body').html(
-    `<header class="js-header">
-      <h1>${userChoice.isCorrect ? 'Yes!' : 'Opps!'}</h1>
+function generateAnswerResultView(userChoice, correctAnswer) {
+  return `
+    <header class="js-header">
+      <h1>${userChoice.isCorrect ? 'Yes!' : 'Oops!' }</h1>
     </header>
     <main class="js-main">
       <form class="js-form">
@@ -104,8 +104,7 @@ function renderAnswerResultView(userChoice, correctAnswer, isCorrect) {
         <p class="form-correct-answer"> ${correctAnswer} </p>
         <button type="button" onclick="handleNextQuestionClicked()">Next</button>
       </form>
-    </main>`);
-  if (!isCorrect) { $('.js-header').addClass('incorrect-answer'); }
+    </main>`;
 }
 
 function findUserChoice(userSelection) {
@@ -142,22 +141,25 @@ function updateScore(userChoice) {
 }
 
 function handleSubmitAnswerSubmit() {
-  $('.js-form').submit(function (event) {
+  $('.js-form').submit(function () {
     const userSelection = $('input:checked').val();
     if (userSelection === undefined) {
       alert('Please select an answer');
-      renderQuestionsView(questions[indexOfQuestion]);
+      $('.js-body').html(generateQuestionsView(questions[indexOfQuestion]));
       return false;
     }
     const userChoice = findUserChoice(userSelection);
     const correctAnswer = getCorrectAnswer();
     updateScore(userChoice);
-    renderAnswerResultView(userChoice, correctAnswer, userChoice.isCorrect);
+    $('.js-body').html(generateAnswerResultView(userChoice, correctAnswer));
+    if (!userChoice.isCorrect) {
+      $('.js-header').addClass('incorrect-answer');
+    }
   });
 }
 
-function renderFinalResultsView() {
-  $('.js-body').html(`
+function generateFinalResultsView() {
+  return `
     <header>
       <h1>All done!</h1>
     </header>
@@ -171,16 +173,16 @@ function renderFinalResultsView() {
         <button type="button" class="js-take-again" onclick="handleTakeQuizAgainClicked()">Take again!</button>
         <button type="button" class="js-exit" onclick="handleExitClicked()">Exit</button>
       </form>
-    </main>`);
+    </main>`;
 }
 
 function handleNextQuestionClicked() {
   $('.js-form').on('click', function (event) {
     indexOfQuestion++;
     if (indexOfQuestion < questions.length) {
-      renderQuestionsView(questions[indexOfQuestion]);
+      $('.js-body').html(generateQuestionsView(questions[indexOfQuestion]));
     } else {
-      renderFinalResultsView();
+      $('.js-body').html(generateFinalResultsView);
     }
   });
 }
@@ -188,12 +190,12 @@ function handleNextQuestionClicked() {
 function handleTakeQuizAgainClicked() {
   $('.js-form').on('click', '.js-take-again', function () {
     resetQuiz();
-    renderQuestionsView(questions[indexOfQuestion]);
+    $('.js-body').html(generateQuestionsView(questions[indexOfQuestion]));
   });
 }
 
-function renderHomepageView() {
-  $('.js-body').html(`
+function generateHomepageView() {
+  return `
     <header>
       <h1>Welcome!</h1>
     </header>
@@ -202,12 +204,12 @@ function renderHomepageView() {
         <p>Take the Seattle Seahawks quiz!</p>
         <button type="button" class="js-start-quiz-button" onclick="handleStartQuizClicked()">Start!</button>
       </form>
-    </main>`);
+    </main>`;
 }
 
 function handleExitClicked() {
   $('.js-form').on('click', '.js-exit', function () {
-    renderHomepageView();
+    $('.js-body').html(generateHomepageView);
   });
 }
 
