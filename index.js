@@ -41,6 +41,14 @@ const question5 = {
 };
 
 const questions = [question1, question2, question3, question4, question5];
+
+const finalScoreMessages = ["So what planet are you from again?",
+  "I see you've just arrived in Seattle. Welcome!", 
+  "Hop on! There's always more room on the bandwagon!",
+  "You've been lovin' the Seahawks since 2012!",
+  "You love your Seahawks!",
+  "You're a true Hawks fan! You bleed green and blue!"];
+
 const score = { correct: 0, incorrect: 0 };
 let indexOfQuestion = 0;
 
@@ -169,6 +177,9 @@ function generateFinalResultsView() {
           <p class="score-results">Score: </p><br>
           <p> ${score.correct} correct</p>
           <p> ${score.incorrect} incorrect</p>
+        </div>
+        <div>
+          <p class="final-score-message">${finalScoreMessages[score.correct]}</P>
         </div>
         <button type="button" class="js-take-again" onclick="handleTakeQuizAgainClicked()">Take again!</button>
         <button type="button" class="js-exit" onclick="handleExitClicked()">Exit</button>

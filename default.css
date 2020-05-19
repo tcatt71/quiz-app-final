@@ -95,6 +95,10 @@ form {
   text-align: center;
 }
 
+.final-score-message {
+  font-weight: bold;
+}
+
 @media screen and (min-width: 600px) {
   h1 {
     font-size: 2.1875rem;
